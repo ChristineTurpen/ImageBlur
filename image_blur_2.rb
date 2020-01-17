@@ -4,25 +4,25 @@ class Image
     @image = image
   end
 
-  def find_pixels
-    find_pixels_arr = []
+  def find_ones
+    find_ones_arr = []
 
     @image.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
         if col == 1
-          find_pixels_arr << [row_index, col_index]
+          find_ones_arr << [row_index, col_index]
         end
       end
     end
 
-    find_pixels_arr
+    find_ones_arr
   end
 
   def blur!
-    find_pixels_arr = find_pixels
+    find_ones_arr = find_ones
     @image.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
-        find_pixels_arr.each do |x, y|
+        find_ones_arr.each do |x, y|
 
           if row_index == x && col_index == y
             @image[row_index -1][col_index] = 1 unless row_index == 0 #Above
