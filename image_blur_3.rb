@@ -5,25 +5,25 @@ class Image
 
   end
 
-# This method is for showing where are the ones in a row.
-  def get_ones
-    get_ones_arr = []
+# This method finds where the ones are in the image
+  def find_ones
+    find_ones_arr = []
     @image.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
         if col == 1
-          get_ones_arr << [row_index, col_index]
+          find_ones_arr << [row_index, col_index]
         end
       end
     end
-    get_ones_arr
+    find_ones_arr
   end
 
+  # This method changes the surrounding 0's to 1's
   def blur!(distance)
-    get_ones_arr = get_ones
+    find_ones_arr = find_ones
     @image.each_with_index do |row, row_index|
       row.each_with_index do |col, col_index|
-        get_ones_arr.each do |x, y|
-
+        find_ones_arr.each do |x, y|
           if manhattan_distance(row_index, col_index, x, y) <= distance
             @image[row_index][col_index] = 1
           end
@@ -38,14 +38,14 @@ class Image
     y_distance + x_distance
   end
 
-#This method is for defining an image.
+# This method initiates the image
   def output_image
     @image.each do |row|
       puts row.join
+    end
   end
-  end
-end
 
+end
 
 image = Image.new([
 [0, 0, 0, 0, 0, 0],
@@ -57,8 +57,9 @@ image = Image.new([
 [0, 0, 0, 0, 0, 1]
 ])
 
-image.output_image #original output
+image.output_image #original image
+
 puts
 image.blur!(3)
 
-image.output_image #blurred output
+image.output_image #blurred image
